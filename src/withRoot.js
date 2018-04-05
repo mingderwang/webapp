@@ -1,41 +1,55 @@
 // @flow
 
 import React from 'react';
-import type { ComponentType } from 'react';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import purple from 'material-ui/colors/purple';
-import green from 'material-ui/colors/green';
+import PropTypes from 'prop-types';
+import { MuiThemeProvider } from 'material-ui/styles';
 import CssBaseline from 'material-ui/CssBaseline';
+import getPageContext from './getPageContext';
 
-// A theme with custom primary and secondary color.
-// It's optional.
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700],
-    },
-    secondary: {
-      light: green[300],
-      main: green[500],
-      dark: green[700],
-    },
-  },
-});
+function withRoot(Component) {
+  class WithRoot extends React.Component {
+    constructor(props, context) {
+      super(props, context);
 
-function withRoot(Component: ComponentType<*>) {
-  function WithRoot(props: Object) {
-    // MuiThemeProvider makes the theme available down the React tree
-    // thanks to React context.
-    return (
-      <MuiThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...props} />
-      </MuiThemeProvider>
-    );
+      this.pageContext = this.props.pageContext || getPageContext();
+    }
+
+    componentDidMount() {
+      // Remove the server-side injected CSS.
+      const jssStyles = document.querySelector('#jss-server-side');
+      if (jssStyles && jssStyles.parentNode) {
+        jssStyles.parentNode.removeChild(jssStyles);
+      }
+    }
+
+    pageContext = null;
+
+    render() {
+      // MuiThemeProvider makes the theme available down the React tree thanks to React context.
+      return (
+        <MuiThemeProvider
+          theme={this.pageContext.theme}
+          sheetsManager={this.pageContext.sheetsManager}
+        >
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...this.props} />
+        </MuiThemeProvider>
+      );
+    }
   }
+
+  WithRoot.propTypes = {
+    pageContext: PropTypes.object,
+  };
+
+  WithRoot.getInitialProps = ctx => {
+    if (Component.getInitialProps) {
+      return Component.getInitialProps(ctx);
+    }
+
+    return {};
+  };
 
   return WithRoot;
 }
