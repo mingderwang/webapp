@@ -10,7 +10,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import withRoot from '../withRoot';
+import withRoot from '../src/withRoot';
 
 const styles = (theme: Object) => ({
   root: {
@@ -31,7 +31,7 @@ type State = {
   open: boolean,
 };
 
-class Index extends React.Component<ProvidedProps & Props, State> {
+class Password extends React.Component<ProvidedProps & Props, State> {
   state = {
     open: false,
   };
@@ -76,4 +76,4 @@ class Index extends React.Component<ProvidedProps & Props, State> {
   }
 }
 
-export default withRoot(withStyles(styles)(Index));
+export default withRoot(withStyles(styles)(Password));
