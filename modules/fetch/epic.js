@@ -7,7 +7,7 @@ import 'rxjs/add/operator/exhaustMap'
 import { START_REQUEST, responseReceived } from './actions'
 
 const request$ = Observable
-  .ajax({ url: 'https://jsonplaceholder.typicode.com/posts/1' })
+  .ajax({ url: 'https://jsonplaceholder.typicode.com/posts' })
   .map(data => data.response)
 
 export default action$ =>
