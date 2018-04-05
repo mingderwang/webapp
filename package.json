@@ -3,15 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "babel-plugin-root-import": "^5.1.0",
+    "globale": "^1.0.0",
     "jss": "latest",
     "material-ui": "next",
-    "next": "latest",
-    "globale": "^1.0.0",
     "material-ui-icons": "next",
+    "next": "beta",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-jss": "latest"
+    "react-jss": "latest",
+    "react-redux": "latest",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.0",
+    "redux-observable": "^0.13.0",
+    "rxjs": "^5.1.1"
   },
   "devDependencies": {
     "flow-bin": "^0.62.0"
