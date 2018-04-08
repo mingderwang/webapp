@@ -33,10 +33,7 @@ export default ({ startRequest, loading, data }) =>
   <Grid
      rows={data ? data : []}
     columns={[
-      { name: 'userId', title: 'User ID' },
-      { name: 'id', title: 'ID' },
-      { name: 'title', title: 'Title' },
-      { name: 'body', title: 'Body' },
+      { name: '_index', title: 'User ID' },
     ]}>
     <Table />
     <TableHeaderRow />

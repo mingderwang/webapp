@@ -1,9 +1,6 @@
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/dom/ajax'
-import 'rxjs/add/operator/filter'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/exhaustMap'
-import 'isomorphic-unfetch'
+
+import  {ofType} from 'redux-observable-adapter-most';
+import { map, filter, debounce, skipRepeats, switchLatest, fromPromise, merge } from 'most'
 
 var elasticsearch = require('elasticsearch');
 var Promise = require('bluebird');
@@ -37,28 +34,14 @@ function search() {
 return client.search({
   index: "elastalert_status",
   body: requestBody.toJSON()
-}).then(function (body) {
-  return body.hits.hits;
-}).then(log);
+})
 }
 
 function closeConnection() {
   client.close();
 }
 
-const request$ = Observable
-  .ajax({ url: 'https://jsonplaceholder.typicode.com/posts' })
-  .map(data => data.response)
-
-//  .ajax({ url: 'https://jsonplaceholder.typicode.com/posts' })
-/* Promise.resolve()
-    .then(ping)
-    .then(search)
-    .then(closeConnection)
-    .map(data => data.response)
-*/
-
 export default action$ =>
-  action$.filter(action => action.type === START_REQUEST)
-    .exhaustMap(() => request$)
-    .map(responseReceived)
+  action$
+    .filter(ofType(START_REQUEST))
+    .map(()=>Promise.resolve('yes'))

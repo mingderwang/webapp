@@ -16,6 +16,7 @@
     "jss": "latest",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.36",
+    "most": "^1.7.3",
     "next": "beta",
     "prop-types": "latest",
     "react": "latest",
@@ -25,6 +26,7 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.0",
     "redux-observable": "^0.13.0",
+    "redux-observable-adapter-most": "^0.0.2",
     "rxjs": "^5.0.0-beta.3"
   },
   "devDependencies": {
