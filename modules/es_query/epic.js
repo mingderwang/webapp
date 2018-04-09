@@ -81,27 +81,36 @@ const mockAjax = () => Promise.resolve({data: [
   }
 ]});
 
-const fetchPost = (action$) => Rx.Observable.fromPromise(fetchData())
+const fetchPost2 = (action$) => Rx.Observable.fromPromise(client.search({
+  index: "",
+  body: requestBody.toJSON()
+}))
+
+
+const fetchPost = (action$) => Rx.Observable.fromPromise(mockAjax())
+  .map(data => data.data)
   .map(data => console.log(data))
   .map(responseReceived)
 
 const defaultPosts = (action$, store) => Rx.Observable.of({type: RECEIVE_POSTS2, posts: store.getState().items});
 
 
-const request$ = Rx.Observable.fromPromise(mockAjax())
-  .map(data => data.request)
+const request$ = Rx.Observable.fromPromise(client.search({
+  index: "",
+  body: requestBody.toJSON()
+}))
+  .map(data => data.hits.hits)
 
-const b =  action$ =>
+export default  action$ =>
   action$.filter(action => action.type === START_REQUEST)
     .exhaustMap(() => request$)
-    .map(x=>console.log(x))
     .map(responseReceived)
 
-export default (action$, store) =>
+const a =  (action$, store) =>
 action$.ofType(START_REQUEST).mergeMap(function () {
 return Rx.Observable['if'](function () {
   return store.getState();
 }, fetchPost(action$), defaultPosts(action$, store))['do'](function (x) {
-  return console.log('ming');
+  return console.log(x);
 });
 });
