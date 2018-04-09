@@ -56,9 +56,28 @@ var SUCCESS = 'SUCCESS';
 var RECEIVE_POSTS = 'RECEIVE_POSTS';
 var RECEIVE_POSTS2 = 'RECEIVE_POSTS2';
 var ABORT_GET_POSTS = 'ABORT_GET_POSTS';
-const mockAjax = () => Promise.resolve({data: [4, 5, 6, 7]});
+const mockAjax = () => Promise.resolve({data: [
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+  },
+  {
+    "userId": 1,
+    "id": 2,
+    "title": "qui est esse",
+    "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+  },
+  {
+    "userId": 10,
+    "id": 100,
+    "title": "at nam consequatur ea labore ea harum",
+    "body": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut"
+  }
+]});
 
-const fetchPost = (action$) => Rx.Observable.fromPromise(mockAjax())
+const fetchPost = (action$) => Rx.Observable.fromPromise(mockAjax()).map(data => data.data)
   .map(responseReceived)
 
 const defaultPosts = (action$, store) => Rx.Observable.of({type: RECEIVE_POSTS2, posts: store.getState().items});
