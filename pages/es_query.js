@@ -1,13 +1,24 @@
-'use strict';
-
 import React from 'react'
 import Link from 'next/link'
-import 'isomorphic-unfetch'
 var elasticsearch = require('elasticsearch');
 var Promise = require('bluebird');
 
 export default class MyPage extends React.Component {
   static async getInitialProps () {
+    return { stars: getData(this)}
+  }
+
+  render () {
+    return (
+      <div>
+        <p>Next.js has {this.props.stars} ⭐️</p>
+        <Link prefetch href='/preact'><a>How about preact?</a></Link>
+      </div>
+    )
+  }
+}
+
+const getData = () => {
     // eslint-disable-next-line no-undef
     const esb = require('elastic-builder'); // the builder
 
@@ -56,7 +67,7 @@ return client.search({
   index: "elastalert_status",
   body: requestBody.toJSON()
 }).then(function (body) {
-  var hits = body.hits.hits;
+  return body.hits.hits;
 }).then(log);
 }
 
@@ -96,21 +107,4 @@ Promise.resolve()
 .then(ping)
 .then(search)
 .then(closeConnection)
-
-
-
-
-    return { stars: 0 }
-
-
-  }
-
-  render () {
-    return (
-      <div>
-        <p>Next.js has {this.props.stars} ⭐️</p>
-        <Link prefetch href='/preact'><a>How about preact?</a></Link>
-      </div>
-    )
-  }
 }
