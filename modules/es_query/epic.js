@@ -1,13 +1,13 @@
 
 import  {ofType} from 'redux-observable-adapter-most';
 import { map, filter, debounce, skipRepeats, switchLatest, fromPromise, forEach } from 'most'
+import Promise from 'bluebird'
 
 var elasticsearch = require('elasticsearch');
 
 import { START_REQUEST, responseReceived } from './actions'
 // eslint-disable-next-line no-undef
 
-const fetchData = () => {
 const esb = require('elastic-builder'); // the builder
 
 const requestBody = esb.requestBodySearch()
@@ -15,6 +15,7 @@ const requestBody = esb.requestBodySearch()
 
 var log = console.log.bind(console);
 const client = new elasticsearch.Client({
+  protocol: 'http',
   host: 'secure.eth.cards:9200',
   log: 'trace'
 });
@@ -46,7 +47,9 @@ function closeConnection() {
   client.close();
 }
 
-return Promise.resolve().then(search)
+const fetchData = () => {
+  console.log('ming-start-fetchData')
+  return Promise.resolve().then(ping).then(search).then(closeConnection)
 }
 
 import Rx from 'rxjs/Rx';
@@ -77,7 +80,8 @@ const mockAjax = () => Promise.resolve({data: [
   }
 ]});
 
-const fetchPost = (action$) => Rx.Observable.fromPromise(mockAjax()).map(data => data.data)
+const fetchPost = (action$) => Rx.Observable.fromPromise(fetchData()).map(x => console.log(x))
+  .map(data => data.data)
   .map(responseReceived)
 
 const defaultPosts = (action$, store) => Rx.Observable.of({type: RECEIVE_POSTS2, posts: store.getState().items});
