@@ -1,6 +1,8 @@
-
-import  {ofType} from 'redux-observable-adapter-most';
-import { map, filter, debounce, skipRepeats, switchLatest, fromPromise, forEach } from 'most'
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/observable/dom/ajax'
+import 'rxjs/add/operator/filter'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/exhaustMap'
 import Promise from 'bluebird'
 
 var elasticsearch = require('elasticsearch');
@@ -11,12 +13,12 @@ import { START_REQUEST, responseReceived } from './actions'
 const esb = require('elastic-builder'); // the builder
 
 const requestBody = esb.requestBodySearch()
-  .query(esb.matchAllQuery().boost(1.2));
+  .query(esb.matchAllQuery());
 
 var log = console.log.bind(console);
 const client = new elasticsearch.Client({
   protocol: 'http',
-  host: 'secure.eth.cards:9200',
+  host: 'b44.vrecle.com:9200',
   log: 'trace'
 });
 
@@ -34,7 +36,7 @@ function ping () {
 
 function search() {
 return client.search({
-  index: "elastalert_status",
+  index: "",
   body: requestBody.toJSON()
 }).then(function (body) {
   var hits = body.hits.hits;
@@ -48,8 +50,7 @@ function closeConnection() {
 }
 
 const fetchData = () => {
-  console.log('ming-start-fetchData')
-  return Promise.resolve().then(ping).then(search).then(closeConnection)
+  return Promise.resolve().then(ping).then(search)
 }
 
 import Rx from 'rxjs/Rx';
@@ -80,18 +81,27 @@ const mockAjax = () => Promise.resolve({data: [
   }
 ]});
 
-const fetchPost = (action$) => Rx.Observable.fromPromise(fetchData()).map(x => console.log(x))
-  .map(data => data.data)
+const fetchPost = (action$) => Rx.Observable.fromPromise(fetchData())
+  .map(data => console.log(data))
   .map(responseReceived)
 
 const defaultPosts = (action$, store) => Rx.Observable.of({type: RECEIVE_POSTS2, posts: store.getState().items});
 
+
+const request$ = Rx.Observable.fromPromise(mockAjax())
+  .map(data => data.request)
+
+const b =  action$ =>
+  action$.filter(action => action.type === START_REQUEST)
+    .exhaustMap(() => request$)
+    .map(x=>console.log(x))
+    .map(responseReceived)
 
 export default (action$, store) =>
 action$.ofType(START_REQUEST).mergeMap(function () {
 return Rx.Observable['if'](function () {
   return store.getState();
 }, fetchPost(action$), defaultPosts(action$, store))['do'](function (x) {
-  return console.log(x);
+  return console.log('ming');
 });
 });
