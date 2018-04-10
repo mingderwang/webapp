@@ -12,6 +12,7 @@ import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
+import { FooterExample } from '~/footer';
 import SimpleTable from './simpleTable'
 import withRoot from '~/shared/withRoot';
 
@@ -55,7 +56,7 @@ class MenuAppBar extends React.Component {
     const open = Boolean(anchorEl);
 
     return (
-      <div className={this.props.classes.root}>
+      <div className={classes.root}>
         <FormGroup>
           <FormControlLabel
             control={
@@ -114,7 +115,9 @@ class MenuAppBar extends React.Component {
               </div>
             )}
           </Toolbar>
+
         </AppBar>
+        <FooterExample />
       </div>
     );
   }
