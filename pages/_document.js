@@ -3,6 +3,7 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import JssProvider from 'react-jss/lib/JssProvider';
 import flush from 'styled-jsx/server';
 import getPageContext from '~/shared/getPageContext';
+import build from '~/shared/build.json'
 
 class MyDocument extends Document {
   render() {
@@ -11,7 +12,7 @@ class MyDocument extends Document {
     return (
       <html lang="en" dir="ltr">
         <Head>
-          <title>My page</title>
+          <title>BiMAP {build.version}</title>
           <meta charSet="utf-8" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
