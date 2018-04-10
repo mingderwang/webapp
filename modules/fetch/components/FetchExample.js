@@ -10,6 +10,7 @@ export default ({ startRequest, loading, data }) =>
   </div>
 
 */
+import {Doughnut} from 'react-chartjs-2';
 
 import {
   Grid, Table, TableHeaderRow
@@ -26,19 +27,30 @@ const prettyJSON = obj => JSON.stringify(obj, null, '\t')
   "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
 },
 */
-export default ({ startRequest, loading, data }) =>
+const iniData = {
+  labels: [
+    'Red',
+    'Green',
+    'Yellow'
+  ],
+  datasets: [{
+    data: [10, 3, 1],
+    backgroundColor: [
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56'
+    ],
+    hoverBackgroundColor: [
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56'
+    ]
+  }]
+};
+
+export default ({ startRequest, loading, data, data2 }) =>
 <div>
     <button onClick={startRequest}>Fetch Data</button>
       { loading ? <div>Loading...</div> : <div>Press the button</div>}
-  <Grid
-     rows={data ? data : []}
-    columns={[
-      { name: 'userId', title: 'User ID' },
-      { name: 'id', title: 'ID' },
-      { name: 'title', title: 'Title' },
-      { name: 'body', title: 'Body' },
-    ]}>
-    <Table />
-    <TableHeaderRow />
-  </Grid>
+  <Doughnut data={data2 ? data2 : iniData} />
 </div>

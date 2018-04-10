@@ -24,8 +24,6 @@
     "prop-types": "latest",
     "react": "latest",
     "react-chartjs-2": "^2.7.0",
-    "react-d3-graph": "^1.2.0",
-    "react-d3-library": "^1.1.8",
     "react-dom": "latest",
     "react-jss": "latest",
     "react-redux": "latest",
