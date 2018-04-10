@@ -36,7 +36,7 @@ function ping () {
 
 function search() {
 return client.search({
-  index: "",
+  index: "linuxtop-2012.05.01",
   body: requestBody.toJSON()
 }).then(function (body) {
   var hits = body.hits.hits;
