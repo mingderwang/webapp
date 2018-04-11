@@ -1,3 +1,3 @@
-import Component from './components/FooterExample'
+import Component from './components/Footer'
 
-export const FooterExample = Component
+export const Footer = Component

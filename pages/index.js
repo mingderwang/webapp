@@ -3,9 +3,9 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import withRoot from '~/shared/withRoot';
-import Main from './titleBar2'
+import Main from './mainPage'
 
-import { FooterExample } from '~/footer';
+import { Footer } from '~/footer';
 
 const styles = (theme: Object) => ({
   root: {
@@ -19,7 +19,7 @@ class TitleTable extends React.Component<ProvidedProps & Props, State> {
     return (
       <div className={this.props.classes.root}>
         <Main />
-        <FooterExample />
+        <Footer />
       </div>
     );
   }

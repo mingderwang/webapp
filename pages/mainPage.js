@@ -14,9 +14,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './menuData';
 import withRoot from '~/shared/withRoot';
-import ESFetch from './es_fetch'
+import HostList from './es_fetch'
 import Fetch from './fetch'
 import build from '~/shared/build.json'
+import Grid from "material-ui/Grid"
+import Paper from "material-ui/Paper"
 
 const drawerWidth = 240; // must have
 
@@ -139,8 +141,26 @@ class MiniDrawer extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ESFetch />
+
+          <div className={classes.root}>
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+          <HostList />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Paper className={classes.paper}>
           <Fetch />
+          </Paper>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Paper className={classes.paper}>
+          <Fetch />
+          </Paper>
+        </Grid>
+      </Grid>
+    </div>
         </main>
       </div>
     );

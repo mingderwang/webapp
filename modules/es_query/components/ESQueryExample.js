@@ -10,17 +10,31 @@ componentDidMount() {
 getMuiTheme = () => createMuiTheme({
   overrides: {
     MUIDataTableBodyCell: {
-      root: {
-        backgroundColor: "#FFFFFF"
-      }
     }
   }
 })
 
 render() {
+
   const options = {
-    filterType: 'checkbox',
-  };
+  filter: true,
+  selectableRows: true,
+  //    filterType: 'checkbox',
+  filterType: 'multiselect',
+  responsive: 'stacked',
+  onRowsSelect: (rowsSelected, allRows) => {
+    console.log(rowsSelected, allRows);
+  },
+  onRowsDelete: (rowsDeleted) => {
+    console.log(rowsDeleted, "were deleted!");
+  },
+  onChangePage: (numberRows) => {
+    console.log(numberRows);
+  },
+  onSearchChange: (searchText) => {
+    console.log(searchText);
+  }
+};
   const columns = [
          {
           name: "Host",
@@ -40,6 +54,8 @@ render() {
 
   return (
      <MuiThemeProvider theme={this.getMuiTheme()}>
+     <button onClick={this.props.startRequest}>Reload Hosts</button>
+           { this.props.loading ? <div>Loading...</div> : <div>重新下載主機清單</div>}
         <MUIDataTable
           title={"Host List"}
           data={this.props.data ? this.props.data : []}
