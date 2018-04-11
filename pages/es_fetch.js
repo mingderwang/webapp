@@ -21,9 +21,8 @@ const styles = {
 const EsFetch = () =>
   <Provider store={getStore()}>
     <div>
-      <h1>Async ES Query Example</h1>
+      <h1>Hosts List</h1>
       <ESQueryExample />
-      <p>Open up Redux dev tools to see the actions</p>
     </div>
   </Provider>
 
