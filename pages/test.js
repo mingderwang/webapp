@@ -1,27 +1,47 @@
-'use strict';
-import React from 'react';
-import {Doughnut} from 'react-chartjs-2';
+import MUIDataTable from "mui-datatables";
 
-const data = {
-  labels: [
-    'Red',
-    'Green',
-    'Yellow'
-  ],
-  datasets: [{
-    data: [100, 100, 100],
-    backgroundColor: [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56'
-    ]
-  }]
+const data = [
+ ["Joe James", "Test Corp", "Yonkers", "NY"],
+ ["John Walsh", "Test Corp", "Hartford", "CT"],
+ ["Bob Herm", "Test Corp", "Tampa", "FL"],
+ ["James Houston", "Test Corp", "Dallas", "TX"],
+];
+
+const options = {
+  filterType: 'checkbox',
 };
+
+const columns = [
+ {
+  name: "Name",
+  options: {
+   filter: true,
+   sort: true,
+  }
+ },
+ {
+  name: "Company",
+  options: {
+   filter: false,
+   sort: false,
+  }
+ },
+ {
+  name: "City",
+  options: {
+   filter: false,
+   sort: false,
+  }
+ },
+ {
+  name: "State",
+  options: {
+   filter: false,
+   sort: true,
+  }
+ },
+];
+
 
 class my_First_React_D3_Library_Component extends React.Component {
   componentDidMount() {
@@ -29,10 +49,12 @@ class my_First_React_D3_Library_Component extends React.Component {
 	}
   render() {
     return (
-      <div>
-        <h2>Doughnut Example</h2>
-        <Doughnut ref='chart' data={data} />
-      </div>
+      <MUIDataTable
+        title={"Employee List"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
     )
   }
 };

@@ -1,44 +1,68 @@
-/* eslint-disable fp/no-nil */
-/*
-const prettyJSON = obj => JSON.stringify(obj, null, '\t')
+'use strict'
 
-export default ({ startRequest, loading, data }) =>
-  <div>
-    <button onClick={startRequest}>Fetch Data</button>
-    { loading ? <div>Loading...</div> : <div>Press the button</div>}
-    { data ? <pre>{prettyJSON(data)}</pre> : '' }
-  </div>
+import MUIDataTable from "mui-datatables";
+import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 
-*/
+export default class MyPage extends React.Component {
+componentDidMount() {
+  this.props.startRequest(); //download host list data from es
+}
+getMuiTheme = () => createMuiTheme({
+  overrides: {
+    MUIDataTableBodyCell: {
+    }
+  }
+})
 
-import {
-  Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-material-ui';
-const prettyJSON = obj => JSON.stringify(obj, null, '\t')
-/*or '@devexpress/dx-react-grid-bootstrap4'
-  or '@devexpress/dx-react-grid-bootstrap3'*/
+render() {
 
-/*
-{
-  "userId": 1,
-  "id": 1,
-  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-},
-*/
-export default ({ startRequest, loading, data }) =>
-<div>
-    <button onClick={startRequest}>Fetch Data</button>
-      { loading ? <div>Loading...</div> : <div>Press the button</div>}
-  <Grid
-     rows={data ? data : []}
-    columns={[
-      { name: '_index', title: 'Index' },
-      { name: '_id', title: 'ID' },
-      { name: '_type', title: 'Type' },
-      { name: '_score', title: 'Score' },
-    ]}>
-    <Table />
-    <TableHeaderRow />
-  </Grid>
-</div>
+  const options = {
+  filter: true,
+  selectableRows: true,
+  //    filterType: 'checkbox',
+  filterType: 'multiselect',
+  responsive: 'stacked',
+  onRowsSelect: (rowsSelected, allRows) => {
+    console.log(rowsSelected, allRows);
+  },
+  onRowsDelete: (rowsDeleted) => {
+    console.log(rowsDeleted, "were deleted!");
+  },
+  onChangePage: (numberRows) => {
+    console.log(numberRows);
+  },
+  onSearchChange: (searchText) => {
+    console.log(searchText);
+  }
+};
+  const columns = [
+         {
+          name: "Host",
+          options: {
+           filter: true,
+           sort: true,
+          }
+         },
+         {
+          name: "Logs",
+          options: {
+           filter: false,
+           sort: false,
+          }
+         },
+        ]
+
+  return (
+     <MuiThemeProvider theme={this.getMuiTheme()}>
+     <button onClick={this.props.startRequest}>Reload Hosts</button>
+           { this.props.loading ? <div>Loading...</div> : <div>重新下載主機清單</div>}
+        <MUIDataTable
+          title={"Host List"}
+          data={this.props.data ? this.props.data : []}
+          columns={columns}
+          options={options}
+        />
+        </MuiThemeProvider>
+    )
+  }
+}

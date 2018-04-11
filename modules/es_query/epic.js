@@ -14,7 +14,8 @@ import { START_REQUEST, responseReceived } from './actions'
 const esb = require('elastic-builder'); // the builder
 
 const requestBody = esb.requestBodySearch()
-  .query(esb.matchAllQuery());
+    .agg(esb.termsAggregation('host_terms', 'host.keyword'));
+
 
 var log = console.log.bind(console);
 const client = new elasticsearch.Client({
@@ -36,10 +37,10 @@ function ping () {
 }
 
 const request$ = Rx.Observable.fromPromise(client.search({
-  index: "linuxtop-2012.05.01",
+  index: "linuxtop-*",
   body: requestBody.toJSON()
 }))
-  .map(data => data.hits.hits)
+  .map(data => data.aggregations.host_terms.buckets)
 
 export default  action$ =>
   action$.filter(action => action.type === START_REQUEST)

@@ -4,6 +4,7 @@ import { ESQueryExample } from '~/es_query'
 import { getStore } from '~/redux-config'
 import withRoot from '~/shared/withRoot';
 import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
 
 const styles = {
   root: {
@@ -19,12 +20,14 @@ const styles = {
 };
 
 const EsFetch = () =>
+<div>
+<Paper style={{ position: 'relative' }}>
   <Provider store={getStore()}>
     <div>
-      <h1>Async ES Query Example</h1>
+      <h1>Hosts List</h1>
       <ESQueryExample />
-      <p>Open up Redux dev tools to see the actions</p>
     </div>
   </Provider>
-
+</Paper>
+</div>
 export default withRoot(withStyles(styles)(EsFetch));
