@@ -3,8 +3,8 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import withRoot from '~/shared/withRoot';
-import TitleBar from './titleBar'
-import SimpleTable from './simpleTable'
+import TitleBar2 from './titleBar2'
+
 import { FooterExample } from '~/footer';
 
 const styles = (theme: Object) => ({
@@ -18,8 +18,8 @@ class TitleTable extends React.Component<ProvidedProps & Props, State> {
   render() {
     return (
       <div className={this.props.classes.root}>
-        <TitleBar />
-        <SimpleTable />
+        <TitleBar2 />
+
         <FooterExample />
       </div>
     );
