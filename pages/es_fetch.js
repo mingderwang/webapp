@@ -20,6 +20,7 @@ const styles = {
 };
 
 const EsFetch = () =>
+<div>
 <Paper style={{ position: 'relative' }}>
   <Provider store={getStore()}>
     <div>
@@ -28,5 +29,5 @@ const EsFetch = () =>
     </div>
   </Provider>
 </Paper>
-
+</div>
 export default withRoot(withStyles(styles)(EsFetch));
