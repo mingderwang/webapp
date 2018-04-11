@@ -13,9 +13,6 @@ export default ({ startRequest, loading, data }) =>
 import {Doughnut} from 'react-chartjs-2';
 import {Line} from 'react-chartjs-2';
 
-import {
-  Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-material-ui';
 const prettyJSON = obj => JSON.stringify(obj, null, '\t')
 /*or '@devexpress/dx-react-grid-bootstrap4'
   or '@devexpress/dx-react-grid-bootstrap3'*/
