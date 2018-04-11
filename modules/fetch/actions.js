@@ -7,4 +7,5 @@ export const startRequest = () => ({ type: START_REQUEST })
 export const responseReceived = response => ({
   type: RESPONSE_RECEIVED,
   data: response,
+  data2: response,
 })
