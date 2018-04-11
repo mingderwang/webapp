@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './menuData';
 import withRoot from '~/shared/withRoot';
+import ESFetch from './es_fetch'
 import Fetch from './fetch'
 import build from '~/shared/build.json'
 
@@ -138,6 +139,7 @@ class MiniDrawer extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <ESFetch />
           <Fetch />
         </main>
       </div>

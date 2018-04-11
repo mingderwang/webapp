@@ -1,42 +1,44 @@
-/* eslint-disable fp/no-nil */
-/*
-const prettyJSON = obj => JSON.stringify(obj, null, '\t')
+'use strict'
 
-export default ({ startRequest, loading, data }) =>
-  <div>
-    <button onClick={startRequest}>Fetch Data</button>
-    { loading ? <div>Loading...</div> : <div>Press the button</div>}
-    { data ? <pre>{prettyJSON(data)}</pre> : '' }
-  </div>
+import MUIDataTable from "mui-datatables";
 
-*/
+const options = {
+  filterType: 'checkbox',
+};
+const columns = [
+       {
+        name: "Host",
+        options: {
+         filter: true,
+         sort: true,
+        }
+       },
+       {
+        name: "Logs",
+        options: {
+         filter: false,
+         sort: false,
+        }
+       },
+      ]
 
-import {
-  Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-material-ui';
-const prettyJSON = obj => JSON.stringify(obj, null, '\t')
-/*or '@devexpress/dx-react-grid-bootstrap4'
-  or '@devexpress/dx-react-grid-bootstrap3'*/
+export default class MyPage extends React.Component {
+componentDidMount() {
+  this.props.startRequest();
+}
 
-/*
-{
-  "userId": 1,
-  "id": 1,
-  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-},
-*/
-export default ({ startRequest, loading, data }) =>
-<div>
-    <button onClick={startRequest}>Fetch Data</button>
-      { loading ? <div>Loading...</div> : <div>Press the button</div>}
-  <Grid
-     rows={data ? data : []}
-    columns={[
-      { name: 'key', title: 'Host' },
-      { name: 'doc_count', title: 'Logs' },
-    ]}>
-    <Table />
-    <TableHeaderRow />
-  </Grid>
-</div>
+render() {
+  return (
+      <div>
+      <button onClick={this.props.startRequest}>Fetch Data</button>
+        {this.props.loading ? <div>Loading...</div> : <div>Press the button</div>}
+      <MUIDataTable
+        title={"Host List"}
+        data={this.props.data ? this.props.data : []}
+        columns={columns}
+        options={options}
+      />
+      </div>
+    )
+  }
+}

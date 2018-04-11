@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@devexpress/dx-grid-core": "^1.1.1",
-    "@devexpress/dx-react-core": "^1.1.1",
-    "@devexpress/dx-react-grid": "^1.1.1",
-    "@devexpress/dx-react-grid-material-ui": "^1.1.1",
     "@material-ui/icons": "^1.0.0-beta.42",
     "babel-plugin-root-import": "^5.1.0",
     "bluebird": "^3.5.1",
@@ -21,6 +17,7 @@
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.36",
     "most": "^1.7.3",
+    "mui-datatables": "^1.1.4",
     "next": "beta",
     "prop-types": "latest",
     "react": "latest",
