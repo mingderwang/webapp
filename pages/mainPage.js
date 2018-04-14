@@ -9,16 +9,19 @@ import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MenuIcon from 'material-ui-icons/Menu';
+import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './menuData';
 import withRoot from '~/shared/withRoot';
-import HostList from './es_fetch'
-import Fetch from './fetch'
 import build from '~/shared/build.json'
 import Grid from "material-ui/Grid"
 import Paper from "material-ui/Paper"
+import { PickTimePeriod } from '~/pickTimePeriod'
+import { Provider } from 'react-redux'
+import { FetchExample } from '~/fetch'
+import { HostList } from '~/hostlist'
+import { getStore } from '~/redux-config'
 
 const drawerWidth = 240; // must have
 
@@ -104,6 +107,7 @@ class MiniDrawer extends React.Component {
 
     return (
       <div className={classes.root}>
+
         <AppBar
           position="absolute"
           className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
@@ -139,10 +143,14 @@ class MiniDrawer extends React.Component {
           <Divider />
           <List>{otherMailFolderListItems}</List>
         </Drawer>
+          <Provider store={getStore()}>
         <main className={classes.content}>
           <div className={classes.toolbar} />
 
           <div className={classes.root}>
+          <Paper className={classes.paper}>
+<PickTimePeriod/> <PickTimePeriod/>
+</Paper>
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
@@ -151,17 +159,18 @@ class MiniDrawer extends React.Component {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
-          <Fetch />
+          <FetchExample/>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}>
-          <Fetch />
+          <FetchExample/>
           </Paper>
         </Grid>
       </Grid>
     </div>
         </main>
+  </Provider>
       </div>
     );
   }

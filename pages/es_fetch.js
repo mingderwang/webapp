@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Provider } from 'react-redux'
-import { ESQueryExample } from '~/es_query'
+import { HostList } from '~/hostlist'
 import { getStore } from '~/redux-config'
 import withRoot from '~/shared/withRoot';
 import { withStyles } from 'material-ui/styles';
@@ -24,8 +24,7 @@ const EsFetch = () =>
 <Paper style={{ position: 'relative' }}>
   <Provider store={getStore()}>
     <div>
-      <h1>Hosts List</h1>
-      <ESQueryExample />
+      <HostList />
     </div>
   </Provider>
 </Paper>

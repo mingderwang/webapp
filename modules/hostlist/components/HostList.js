@@ -57,7 +57,7 @@ render() {
      <button onClick={this.props.startRequest}>Reload Hosts</button>
            { this.props.loading ? <div>Loading...</div> : <div>重新下載主機清單</div>}
         <MUIDataTable
-          title={"Host List"}
+          title={"有資料的主機"}
           data={this.props.data ? this.props.data : []}
           columns={columns}
           options={options}
