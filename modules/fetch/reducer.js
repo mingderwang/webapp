@@ -7,7 +7,7 @@ export default (state = { loading: false }, action) => {
     case START_REQUEST: return { loading: true }
     case RESPONSE_RECEIVED: {
     return { loading: false, data:{
-      labels: [''],
+      labels: ['00:00', '01:00', '02.00'],
       datasets: [
         {
           label: 'memfree',
