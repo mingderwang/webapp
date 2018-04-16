@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import asyncValidate from '../asyncValidate';
 import validate from '../validate';
+import * as fetch from '~/fetch'
+import { getStore } from '~/redux-config'
 
 const renderTextField = ({
 input, label, meta: { touched, error }, ...custom }) =>
@@ -19,19 +21,31 @@ input, label, meta: { touched, error }, ...custom }) =>
     {...custom}
   />
 
-const MaterialUiForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+class MaterialUiForm extends React.Component {
+  _onChange (e) {
+        if(e.target.value === "") {
+            return;
+        }
+        console.log("dispatch fetch actions")
+        getStore().dispatch(fetch.actions())
+        //this.setState({
+
+        //});
+    }
+  render () {
   return (
-    <form onSubmit={handleSubmit}>
+    <form >
       <div>
         <Field
+          onChange = {this._onChange}
           name="fromDate"
           component={renderTextField}
           label="監看日期"
         />
       </div>
     </form>
-  );
+  )
+}
 };
 
 export default reduxForm({

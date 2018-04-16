@@ -151,8 +151,6 @@ class MiniDrawer extends React.Component {
           <div className={classes.root}>
           <Paper className={classes.paper}>
            <PickTimePeriod/>
-           <Values form="MaterialUiForm" />
-           <Todoapp/>
           </Paper>
       <Grid container spacing={24}>
         <Grid item xs={12}>
