@@ -23,6 +23,7 @@ import { FetchExample } from '~/fetch'
 import { HostList } from '~/hostlist'
 import { getStore } from '~/redux-config'
 import { Values } from 'redux-form-website-template';
+import { Todoapp } from '~/todoapp'
 
 const drawerWidth = 240; // must have
 
@@ -151,6 +152,7 @@ class MiniDrawer extends React.Component {
           <Paper className={classes.paper}>
            <PickTimePeriod/>
            <Values form="MaterialUiForm" />
+           <Todoapp/>
           </Paper>
       <Grid container spacing={24}>
         <Grid item xs={12}>

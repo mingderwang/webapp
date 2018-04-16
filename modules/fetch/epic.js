@@ -3,52 +3,48 @@ import 'rxjs/add/observable/dom/ajax'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/exhaustMap'
-
+import Promise from 'bluebird'
+import Rx from 'rxjs'
+import elasticsearch from 'elasticsearch'
 import { START_REQUEST, responseReceived } from './actions'
-const iniData = {
-  labels: [
-    'Red',
-    'Green',
-    'Yellow'
-  ],
-  datasets: [{
-    data: [10, 3, 20],
-    backgroundColor: [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56'
-    ]
-  }]
-};
+import esb from 'elastic-builder'
 
-const request$ = Observable
-  .ajax({ url: 'https://jsonplaceholder.typicode.com/posts' })
-  .map(x => ({
-    labels: [
-      'Red',
-      'Green',
-      'Yellow'
-    ],
-    datasets: [{
-      data: [x.response[0].id, x.response[1].id, x.response[2].id],
-      backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-      ],
-      hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-      ]
-    }]
-  }) )
-//  .map(x => {console.log(x)  console.log(iniData)})
+const indexName = "linuxtop-*"
+const hostName = 'b44.vrecle.com:9200'
+const logLevel = 'info'
+const protocolType = 'http'
+const { getStore } = '~/redux-config'
+
+const requestBody = esb.requestBodySearch()
+    .query(
+        esb.boolQuery()
+            .must(esb.matchQuery('host', 'amd72'))
+           .must(esb.rangeQuery('@timestamp').gte('2012-05-02').lt('2012-05-03'))
+    )
+
+const client = new elasticsearch.Client({
+  protocol: protocolType,
+  host: hostName, // CORS issue for localhost dev ENV is not working.
+  log: logLevel
+});
+
+function ping () {
+  return client.ping({
+  requestTimeout: 3000,
+}, function (error) {
+  if (error) {
+    console.error('elasticsearch cluster is down!');
+  } else {
+    console.log('All is well');
+  }
+});
+}
+
+const request$ = Rx.Observable.fromPromise(client.search({
+  index: indexName,
+  body: requestBody.toJSON()
+}))
+  .map(data => data.hits.hits)
 
 export default action$ =>
   action$.filter(action => action.type === START_REQUEST)
