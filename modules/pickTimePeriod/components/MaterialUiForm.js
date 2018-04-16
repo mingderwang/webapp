@@ -13,8 +13,8 @@ input, label, meta: { touched, error }, ...custom }) =>
     InputLabelProps={{
       shrink: true,
     }}
-    hintText={label}
-    errorText={touched && error}
+    hinttext={label}
+    errortext={touched && error}
     {...input}
     {...custom}
   />

@@ -1,6 +1,6 @@
 /* global React */
 /* eslint-disable fp/no-nil, better/explicit-return, better/no-ifs */
-
+import { getStore } from '~/redux-config'
 export default class Component extends React.Component {
   state = { inputText: '' }
 
@@ -12,6 +12,7 @@ export default class Component extends React.Component {
       const { addTodo } = this.props
       addTodo(this.state.inputText)
       this.setState({ inputText: '' })
+      console.log(getStore().getState())
     }
   }
 
