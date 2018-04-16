@@ -22,6 +22,7 @@ import { Provider } from 'react-redux'
 import { FetchExample } from '~/fetch'
 import { HostList } from '~/hostlist'
 import { getStore } from '~/redux-config'
+import { Values } from 'redux-form-website-template';
 
 const drawerWidth = 240; // must have
 
@@ -143,14 +144,14 @@ class MiniDrawer extends React.Component {
           <Divider />
           <List>{otherMailFolderListItems}</List>
         </Drawer>
-          <Provider store={getStore()}>
+    <Provider store={getStore()}>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-
           <div className={classes.root}>
           <Paper className={classes.paper}>
-<PickTimePeriod/> <PickTimePeriod/>
-</Paper>
+           <PickTimePeriod/>
+           <Values form="MaterialUiForm" />
+          </Paper>
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
