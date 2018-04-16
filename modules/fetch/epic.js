@@ -18,9 +18,11 @@ const { getStore } = '~/redux-config'
 const requestBody = esb.requestBodySearch()
     .query(
         esb.boolQuery()
-            .must(esb.matchQuery('host', 'amd72'))
+           .must(esb.termQuery('host', 'amd72'))
            .must(esb.rangeQuery('@timestamp').gte('2012-05-02').lt('2012-05-03'))
-    )
+           .filter(esb.termQuery('style', 'topsys'))
+    ).from(0)
+    .size(100);
 
 const client = new elasticsearch.Client({
   protocol: protocolType,

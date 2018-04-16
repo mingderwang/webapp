@@ -16,6 +16,6 @@ export default ({ startRequest, loading, data}) =>
 <div>
     <button onClick={startRequest}>Fetch Data</button>
       { loading ? <div>Loading...</div> : <div>Press the button</div>}
-  <h2>Line chart</h2>
+  <h2>Memory</h2>
 <Line data={data ? data : []} />
 </div>
