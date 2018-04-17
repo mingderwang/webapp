@@ -20,7 +20,6 @@ import Paper from "material-ui/Paper"
 import { PickTimePeriod } from '~/pickTimePeriod'
 import { Provider } from 'react-redux'
 import { BiMAPLineChart } from '~/fetch'
-import { HostList } from '~/hostlist'
 import { getStore } from '~/redux-config'
 import { Values } from 'redux-form-website-template';
 import { Todoapp } from '~/todoapp'
@@ -153,17 +152,12 @@ class MiniDrawer extends React.Component {
            <PickTimePeriod/>
           </Paper>
       <Grid container spacing={24}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-          <HostList />
-          </Paper>
-        </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
           <BiMAPLineChart hostNode='amd72'/>
           </Paper>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
           <BiMAPLineChart hostNode='amd63'/>
           </Paper>

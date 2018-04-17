@@ -20,11 +20,11 @@ export const mailFolderListItems = (
       <ListItemText primary="Alarm" />
     </ListItem>
 
-    <ListItem button component="a" href="/history">
+    <ListItem button component="a" href="/hosts">
       <ListItemIcon>
         <HistoryIcon />
       </ListItemIcon>
-      <ListItemText primary="History" />
+      <ListItemText primary="Hosts" />
     </ListItem>
 
     <ListItem button component="a" href="/test">
