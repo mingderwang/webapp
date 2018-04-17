@@ -2,18 +2,16 @@
 import { START_REQUEST, RESPONSE_RECEIVED } from './actions'
 import { forEach } from 'lodash'
 import { DateTime } from 'luxon';
+import SingletonModuleScopedInstance from '~/shared/singleton';
+
+const instance2 = new SingletonModuleScopedInstance();
 
 export default (state = { loading: false }, action) => {
-  var timeList = []
-  for (var i = 0; i<100; i++) {
-    timeList.push(DateTime.local(2017, 5, 15, 0, 0).plus({minutes: 5*i}).toFormat('hh:mm'))
-  }
-  console.log(timeList);
   switch (action.type) {
     case START_REQUEST: return { loading: true }
     case RESPONSE_RECEIVED: {
     return { loading: false, data:{
-      labels: timeList,
+      labels: instance2.type,
       datasets: [
         {
           label: 'memfree',

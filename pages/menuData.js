@@ -62,7 +62,7 @@ export const otherMailFolderListItems = (
       <ListItemIcon>
         <HelpOutlineIcon />
       </ListItemIcon>
-      <ListItemText primary="Document" />
+      <ListItemText primary="文件管理與查詢" />
     </ListItem>
 
   </div>
