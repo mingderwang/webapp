@@ -58,7 +58,7 @@ export const otherMailFolderListItems = (
       </ListItemIcon>
       <ListItemText primary="About" />
     </ListItem>
-    <ListItem button component="a" href="http://localhost:8000">
+    <ListItem button component="a" href="http://127.0.0.1:8000">
       <ListItemIcon>
         <HelpOutlineIcon />
       </ListItemIcon>
