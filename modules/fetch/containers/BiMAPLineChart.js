@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { startRequest } from '../actions'
-import Component from '../components/FetchExample'
+import Component from '../components/BiMAPLineChart'
 
 const mapDispatchToProps = dispatch => ({
   startRequest: () => dispatch(startRequest()),
