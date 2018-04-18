@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/exhaustMap'
 
 import { START_REQUEST, responseReceived } from './actions'
+
 const iniData = {
   labels: [
     'Red',
@@ -26,7 +27,9 @@ const iniData = {
   }]
 };
 
-const request$ = Observable
+const request$ = (store) => {
+  return
+  Observable
   .ajax({ url: 'https://jsonplaceholder.typicode.com/posts' })
   .map(x => ({
     labels: [
@@ -48,9 +51,11 @@ const request$ = Observable
       ]
     }]
   }) )
+
+}
 //  .map(x => {console.log(x)  console.log(iniData)})
 
-export default action$ =>
+export default (action$, store) =>
   action$.filter(action => action.type === START_REQUEST)
-    .exhaustMap(() => request$)
+    .exhaustMap((store) => request$(store))
     .map(responseReceived)

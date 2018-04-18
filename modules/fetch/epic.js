@@ -14,11 +14,12 @@ const hostName = 'b44.vrecle.com:9200'
 const logLevel = 'info'
 const protocolType = 'http'
 const { getStore } = '~/redux-config'
+const hostNodeName = 'amd72'
 
 const requestBody = esb.requestBodySearch()
     .query(
         esb.boolQuery()
-           .must(esb.termQuery('host', 'amd72'))
+           .must(esb.termQuery('host', hostNodeName))
            .must(esb.rangeQuery('@timestamp').gte('2011-05-01').lt('2013-05-03'))
            .filter(esb.termQuery('style', 'topsys'))
     ).from(0)
@@ -48,7 +49,8 @@ const request$ = Rx.Observable.fromPromise(client.search({
 }))
   .map(data => data.hits.hits)
 
-export default action$ =>
+export default (action$, store) =>
   action$.filter(action => action.type === START_REQUEST)
     .exhaustMap(() => request$)
-    .map(responseReceived)
+   .map(responseReceived)
+  //  .mapTo(console.log(store.getState().counter.count))

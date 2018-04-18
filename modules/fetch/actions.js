@@ -3,7 +3,7 @@ export const START_REQUEST = 'fetch/START_REQUEST'
 export const RESPONSE_RECEIVED = 'fetch/RESPONSE_RECEIVED'
 
 // action creators
-export const startRequest = () => ({ type: START_REQUEST })
+export const startRequest = (hostName) => ({ type: START_REQUEST, host: hostName })
 export const responseReceived = response => {
   var array = []
   var array2 = []

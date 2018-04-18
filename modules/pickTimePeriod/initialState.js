@@ -1,3 +1,3 @@
 export default {
-  counter: { count: 3 },
+  pickTimePeriod: { date: new Date().toLocaleTimeString() },
 }
