@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux'
 import { reducer as counter } from '~/counter'
 import { reducer as todoapp } from '~/todoapp'
-import { reducer as es_query } from '~/es_query'
+import { reducer as hostlist } from '~/hostlist'
 import { reducer as fetch } from '~/fetch'
+import { reducer as reduxFormReducer } from 'redux-form'
+import { reducer as pickTimePeriodReducer } from '~/pickTimePeriod'
 
 export default combineReducers({
   counter,
   todoapp,
-  es_query,
+  hostlist,
   fetch,
+  form: reduxFormReducer,// mounted under "form"
 })

@@ -1,9 +1,9 @@
 import Actions from './actions'
 import Reducer from './reducer'
 import Epic from './epic'
-import Container from './containers/ESQueryExample'
+import Container from './containers/HostList'
 
 export const actions = Actions
 export const reducer = Reducer
-export const ESQueryExample = Container
+export const HostList = Container
 export const epic = Epic

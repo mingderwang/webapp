@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Provider } from 'react-redux'
-import { FetchExample } from '~/fetch'
+import { HostList } from '~/hostlist'
 import { getStore } from '~/redux-config'
 import withRoot from '~/shared/withRoot';
 import { withStyles } from 'material-ui/styles';
@@ -19,15 +19,14 @@ const styles = {
   },
 };
 
-const Fetch = () =>
+const EsFetch = () =>
+<div>
 <Paper style={{ position: 'relative' }}>
   <Provider store={getStore()}>
     <div>
-      <h1>Dobut fetch data</h1>
-      <FetchExample />
-      <p>Open up Redux dev tools to see the actions</p>
-      <Link href="/"><a>Home</a></Link>
+      <HostList />
     </div>
   </Provider>
 </Paper>
-export default withRoot(withStyles(styles)(Fetch));
+</div>
+export default withRoot(withStyles(styles)(EsFetch));

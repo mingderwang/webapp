@@ -1,6 +1,6 @@
 import { forEach } from 'lodash'
-export const START_REQUEST = 'es_query/START_REQUEST'
-export const RESPONSE_RECEIVED = 'es_query/RESPONSE_RECEIVED'
+export const START_REQUEST = 'hostlist/START_REQUEST'
+export const RESPONSE_RECEIVED = 'hostlist/RESPONSE_RECEIVED'
 
 // action creators
 export const startRequest = () => ({ type: START_REQUEST })

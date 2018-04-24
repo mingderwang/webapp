@@ -54,10 +54,10 @@ render() {
 
   return (
      <MuiThemeProvider theme={this.getMuiTheme()}>
-     <button onClick={this.props.startRequest}>Reload Hosts</button>
-           { this.props.loading ? <div>Loading...</div> : <div>重新下載主機清單</div>}
+     <button onClick={this.props.startRequest}>重新下載主機清單</button>
+           { this.props.loading ? <div>下載中 ...</div> : <div>(如果需要的話)</div> }
         <MUIDataTable
-          title={"Host List"}
+          title={"有資料的主機"}
           data={this.props.data ? this.props.data : []}
           columns={columns}
           options={options}

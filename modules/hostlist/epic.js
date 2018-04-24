@@ -5,23 +5,22 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/exhaustMap'
 import Promise from 'bluebird'
 import Rx from 'rxjs'
-
-var elasticsearch = require('elasticsearch');
-
+import elasticsearch from 'elasticsearch'
 import { START_REQUEST, responseReceived } from './actions'
-// eslint-disable-next-line no-undef
+import esb from 'elastic-builder'
 
-const esb = require('elastic-builder'); // the builder
+const indexName = "linuxtop-*"
+const hostName = 'b44.vrecle.com:9200'
+const logLevel = 'trace'
+const protocolType = 'http'
 
 const requestBody = esb.requestBodySearch()
     .agg(esb.termsAggregation('host_terms', 'host.keyword'));
 
-
-var log = console.log.bind(console);
 const client = new elasticsearch.Client({
-  protocol: 'http',
-  host: 'b44.vrecle.com:9200', // CORS issue for localhost dev ENV is not working.
-  log: 'trace'
+  protocol: protocolType,
+  host: hostName, // CORS issue for localhost dev ENV is not working.
+  log: logLevel
 });
 
 function ping () {
@@ -37,12 +36,12 @@ function ping () {
 }
 
 const request$ = Rx.Observable.fromPromise(client.search({
-  index: "linuxtop-*",
+  index: indexName,
   body: requestBody.toJSON()
 }))
   .map(data => data.aggregations.host_terms.buckets)
 
-export default  action$ =>
+export default action$ =>
   action$.filter(action => action.type === START_REQUEST)
     .exhaustMap(() => request$)
     .map(responseReceived)

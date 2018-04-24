@@ -20,11 +20,11 @@ export const mailFolderListItems = (
       <ListItemText primary="Alarm" />
     </ListItem>
 
-    <ListItem button component="a" href="/history">
+    <ListItem button component="a" href="/hosts">
       <ListItemIcon>
         <HistoryIcon />
       </ListItemIcon>
-      <ListItemText primary="History" />
+      <ListItemText primary="Hosts" />
     </ListItem>
 
     <ListItem button component="a" href="/test">
@@ -58,11 +58,11 @@ export const otherMailFolderListItems = (
       </ListItemIcon>
       <ListItemText primary="About" />
     </ListItem>
-    <ListItem button component="a" href="/about">
+    <ListItem button component="a" href="http://b44.vrecle.com:8000">
       <ListItemIcon>
         <HelpOutlineIcon />
       </ListItemIcon>
-      <ListItemText primary="Help" />
+      <ListItemText primary="文件管理與查詢" />
     </ListItem>
 
   </div>
