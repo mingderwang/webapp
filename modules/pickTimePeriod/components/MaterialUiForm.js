@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import asyncValidate from '../asyncValidate';
 import validate from '../validate';
-import * as fetch from '~/fetch'
+import { startRequest } from '~/fetch/actions'
 import { getStore } from '~/redux-config'
 
 const renderTextField = ({
@@ -27,7 +27,7 @@ class MaterialUiForm extends React.Component {
             return;
         }
         console.log("dispatch fetch actions")
-        getStore().dispatch(fetch.actions())
+        getStore().dispatch(startRequest())
         //this.setState({
 
         //});

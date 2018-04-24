@@ -22,6 +22,7 @@ export default (reducer, initialState = {}) => {
   const epicMiddleware = createEpicMiddleware(epics);
   const enhancers = composeWithDevTools(applyMiddleware(epicMiddleware))
   if (!store) {
+    // store = createStore(reducer, initialState, enhancers)
     const stateLoader = new StateLoader();
     store = createStore(reducer, stateLoader.loadState(), enhancers)
     store.subscribe(() => {
